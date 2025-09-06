@@ -1,0 +1,2 @@
+# analiz
+satranç analiz için
