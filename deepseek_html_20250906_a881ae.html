@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satranç Analiz Merkezi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e94560;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8fe3cf;
+            margin-bottom: 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chess-board {
+            flex: 1;
+            min-width: 300px;
+            background: #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .board {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            border: 2px solid #333;
+        }
+        
+        .square {
+            aspect-ratio: 1/1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .square:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        .white {
+            background-color: #f0d9b5;
+        }
+        
+        .black {
+            background-color: #b58863;
+        }
+        
+        .analysis-panel {
+            flex: 1;
+            min-width: 300px;
+            background: #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #e94560;
+            border-bottom: 2px solid #e94560;
+            padding-bottom: 5px;
+        }
+        
+        .move-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .move {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            background: #1a1a2e;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .move:hover {
+            background: #e94560;
+        }
+        
+        .analysis-result {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .evaluation {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #8fe3cf;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 200px;
+            background: #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #e94560;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background: #ff577f;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Satranç Analiz Merkezi</h1>
+            <p class="subtitle">Oyunlarınızı analiz edin ve stratejinizi geliştirin</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="chess-board">
+                <h2 class="panel-title">Satranç Tahtası</h2>
+                <div class="board">
+                    <!-- Satranç tahtası JavaScript ile oluşturulacak -->
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn"><i class="fas fa-undo"></i> Geri Al</button>
+                    <button class="btn"><i class="fas fa-play"></i> Analiz Et</button>
+                    <button class="btn"><i class="fas fa-redo"></i> Sıfırla</button>
+                </div>
+            </div>
+            
+            <div class="analysis-panel">
+                <h2 class="panel-title">Analiz Sonuçları</h2>
+                <div class="move-list">
+                    <p>Oyun hamleleri burada görünecek...</p>
+                </div>
+                
+                <div class="analysis-result">
+                    <p class="evaluation">Pozisyon Değerlendirmesi: +0.0</p>
+                    <p>Önerilen hamleler: e4, d4, Nf3</p>
+                    <p>Hata seviyesi: Düşük</p>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn"><i class="fas fa-chart-line"></i> Derin Analiz</button>
+                    <button class="btn"><i class="fas fa-save"></i> Oyunu Kaydet</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chess"></i>
+                </div>
+                <h3 class="feature-title">Hamle Analizi</h3>
+                <p>Her hamleyi derinlemesine analiz edin</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">Strateji Önerileri</h3>
+                <p>Oyun stratejinizi geliştirin</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="feature-title">Oyun Geçmişi</h3>
+                <p>Tüm oyunlarınızı kaydedin</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Topluluk</h3>
+                <p>Diğer oyuncularla etkileşim kurun</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Basit bir satranç tahtası oluşturma
+        document.addEventListener('DOMContentLoaded', function() {
+            const board = document.querySelector('.board');
+            const files = 'abcdefgh';
+            const initialPosition = [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+            ];
+            
+            const pieceToSymbol = {
+                'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+                'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙',
+                '': ''
+            };
+            
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.className = `square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+                    square.dataset.row = row;
+                    square.dataset.col = col;
+                    square.textContent = pieceToSymbol[initialPosition[row][col]];
+                    board.appendChild(square);
+                }
+            }
+            
+            // Hamle yapma işlevi (basit örnek)
+            const squares = document.querySelectorAll('.square');
+            squares.forEach(square => {
+                square.addEventListener('click', function() {
+                    const row = this.dataset.row;
+                    const col = this.dataset.col;
+                    console.log(`Clicked on square: ${files[col]}${8 - row}`);
+                    // Gerçek uygulamada burada taş hareketi işlenecek
+                });
+            });
+        });
+    </script>
+</body>
+</html>
